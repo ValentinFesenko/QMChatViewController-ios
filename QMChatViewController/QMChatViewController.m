@@ -562,6 +562,9 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
     
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
+    [self.collectionView reloadData];
+    
     if (self.automaticallyScrollsToMostRecentMessage) {
         [self scrollToBottomAnimated:animated];
     }
@@ -573,6 +576,9 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (void)finishReceivingMessageAnimated:(BOOL)animated {
+    
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
+    [self.collectionView reloadData];
     
     if (self.automaticallyScrollsToMostRecentMessage && ![self isMenuVisible]) {
         [self scrollToBottomAnimated:animated];
